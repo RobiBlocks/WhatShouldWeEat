@@ -62,17 +62,20 @@ const foodList = [
   {
     id: 11,
     name: "Pancakes",
-    zutaten: ["Mehl", "Milch", "Eier"]
+    zutaten: ["Mehl", "Milch", "Eier"],
+    zeit: "Morgen"
   },
     {
     id: 12,
     name: "Rührei",
-    zutaten: ["Eier"]
+    zutaten: ["Eier"],
+    zeit: "Morgen"
   },
     {
     id: 13,
     name: "Birchermüsli",
-    zutaten: ["Joghurt", "Haferflocken"]
+    zutaten: ["Joghurt", "Haferflocken"],
+    zeit: "Morgen"
   },
 ];
 
