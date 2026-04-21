@@ -58,34 +58,71 @@ foodList.forEach(food => {
 });
 let uniqueIngredients = Array.from(allIngredients);
 
-// Array für ausgeschlossene Zutaten
 let excludedIngredients = [];
+let preferredIngredients = [];
 
-let createFoodForm = function () {
+const selectedByForm = {
+  excluded: new Set(),
+  preferred: new Set(),
+};
+
+const buttonsByForm = {
+  excluded: new Map(),
+  preferred: new Map(),
+};
+
+const selectedClassByForm = {
+  excluded: "excluded",
+  preferred: "included",
+};
+
+let toggleIngredient = function (currentFormKey, otherFormKey, ingredient) {
+  const currentSelection = selectedByForm[currentFormKey];
+  const currentButton = buttonsByForm[currentFormKey].get(ingredient);
+  const otherButton = buttonsByForm[otherFormKey].get(ingredient);
+  const selectedClass = selectedClassByForm[currentFormKey];
+
+  if (currentSelection.has(ingredient)) {
+    currentSelection.delete(ingredient);
+    currentButton.classList.remove("excluded", "included");
+
+    if (otherButton) {
+      otherButton.hidden = false;
+      otherButton.disabled = false;
+    }
+  } else {
+    currentSelection.add(ingredient);
+    currentButton.classList.add(selectedClass);
+
+    if (otherButton) {
+      otherButton.hidden = true;
+      otherButton.disabled = true;
+    }
+  }
+
+  excludedIngredients = Array.from(selectedByForm.excluded);
+  preferredIngredients = Array.from(selectedByForm.preferred);
+
+  console.log("Ausgeschlossene Zutaten:", excludedIngredients);
+  console.log("Gewuenschte Zutaten:", preferredIngredients);
+};
+
+let createIngredientForm = function (formKey, otherFormKey) {
   let form = document.createElement("form");
-  form.id = "foodForm";
+  form.id = `foodForm-${formKey}`;
 
-  let title = document.createElement("h2");
-  title.textContent = "Wähle Zutaten aus, die du nicht essen möchtest:";
-  form.appendChild(title);
-
-  uniqueIngredients.forEach(ingredient => {
+  uniqueIngredients.forEach((ingredient) => {
     let button = document.createElement("button");
     button.type = "button";
     button.textContent = ingredient;
     button.className = "ingredient-button";
-    button.addEventListener("click", function() {
-      if (excludedIngredients.includes(ingredient)) {
-        // Entfernen
-        excludedIngredients = excludedIngredients.filter(item => item !== ingredient);
-        button.classList.remove("excluded");
-      } else {
-        // Hinzufügen
-        excludedIngredients.push(ingredient);
-        button.classList.add("excluded");
-      }
-      console.log("Ausgeschlossene Zutaten:", excludedIngredients);
+
+    buttonsByForm[formKey].set(ingredient, button);
+
+    button.addEventListener("click", function () {
+      toggleIngredient(formKey, otherFormKey, ingredient);
     });
+
     form.appendChild(button);
   });
 
@@ -93,5 +130,16 @@ let createFoodForm = function () {
   document.getElementById("app").appendChild(form);
 };
 
-// Rufe die Funktion auf, um das Formular zu erstellen
-createFoodForm();
+var app = document.getElementById("app");
+
+let negativeTitle = document.createElement("h2");
+  negativeTitle.textContent = "Wähle Zutaten aus, die du nicht essen möchtest:";
+  app.appendChild(negativeTitle);
+
+createIngredientForm("excluded", "preferred");
+
+let positiveTitle = document.createElement("h2");
+  positiveTitle.textContent = "Wähle Zutaten aus, die du essen möchtest:";
+  app.appendChild(positiveTitle);
+
+createIngredientForm("preferred", "excluded");
