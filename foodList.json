@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Schnitzel mit Pommes",
+    "zutaten": ["Kartoffeln", "Schweinefleisch", "Eier", "Mehl"]
+  },
+  {
+    "id": 2,
+    "name": "Currywurst",
+    "zutaten": ["Brühwurst", "Tomaten", "Curry"]
+  },
+  {
+    "id": 3,
+    "name": "Pizza Salami",
+    "zutaten": ["Käse", "Mehl", "Tomaten", "Salami"]
+  },
+  {
+    "id": 4,
+    "name": "Hamburger",
+    "zutaten": ["Rindfleisch", "Käse", "Tomaten", "Salat", "Gurken"]
+  },
+  {
+    "id": 5,
+    "name": "Spaghetti Bolognese",
+    "zutaten": ["Rindfleisch", "Tomaten", "Karotten", "Mehl"]
+  },
+  {
+    "id": 6,
+    "name": "Käsespätzle",
+    "zutaten": ["Spätzlemehl", "Eier", "Bergkäse", "Butter"]
+  },
+  {
+    "id": 7,
+    "name": "Kartoffelpuffer",
+    "zutaten": ["Kartoffeln"]
+  },
+  {
+    "id": 8,
+    "name": "Gulasch",
+    "zutaten": ["Rindfleisch", "Tomaten", "Paprika"]
+  },
+  {
+    "id": 9,
+    "name": "Ravioli",
+    "zutaten": ["Tomaten", "Mehl", "Rindfleisch", "Eier"]
+  },
+  {
+    "id": 10,
+    "name": "Maki Sushi",
+    "zutaten": ["Lachs", "Avocado", "Reis", "Seegras"]
+  }
+]
