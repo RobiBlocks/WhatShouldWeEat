@@ -1,6 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
+  background-color: #A894C4;
 }
 
 #foodForm {
@@ -10,8 +11,8 @@ body {
 .ingredient-button {
   margin: 5px;
   padding: 10px 15px;
-  background-color: #4ca5af;
-  color: white;
+  background-color: #0c87ce;
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -39,7 +40,7 @@ body {
   border: none;
   border-radius: 5px;
   background-color: #2e7d32;
-  color: white;
+  color: black;
   cursor: pointer;
 }
 
@@ -51,5 +52,5 @@ body {
   margin-top: 16px;
   padding: 12px;
   border-radius: 6px;
-  background-color: #f4f7f8;
+  background-color: #8659c4;
 }
