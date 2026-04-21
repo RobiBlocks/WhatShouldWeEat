@@ -59,6 +59,21 @@ const foodList = [
     zutaten: ["Lachs", "Avocado", "Reis", "Seegras"],
     zeit: "Abend"
   },
+  {
+    id: 11,
+    name: "Pancakes",
+    zutaten: ["Mehl", "Milch", "Eier"]
+  },
+    {
+    id: 12,
+    name: "Rührei",
+    zutaten: ["Eier"]
+  },
+    {
+    id: 13,
+    name: "Birchermüsli",
+    zutaten: ["Joghurt", "Haferflocken"]
+  },
 ];
 
 // Sammle alle einzigartigen Zutaten
