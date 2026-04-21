@@ -211,7 +211,58 @@ let chooseMeal = function () {
   });
 
   if (filteredWithoutExcluded.length === 0) {
-    resultBox.textContent = "Kein passendes Gericht gefunden. Passe deine Auswahl an.";
+    const alternativePool = filteredByTime.length > 0 ? filteredByTime : foodList;
+
+    let bestConflictCount = Infinity;
+    let bestPreferenceScore = -1;
+    let alternativeCandidates = [];
+
+    alternativePool.forEach((food) => {
+      const conflictCount = food.zutaten.filter((zutat) => excludedIngredients.includes(zutat)).length;
+      const preferenceScore = food.zutaten.filter((zutat) => preferredIngredients.includes(zutat)).length;
+
+      const isBetterConflict = conflictCount < bestConflictCount;
+      const isSameConflictButBetterPreference =
+        conflictCount === bestConflictCount && preferenceScore > bestPreferenceScore;
+
+      if (isBetterConflict || isSameConflictButBetterPreference) {
+        bestConflictCount = conflictCount;
+        bestPreferenceScore = preferenceScore;
+        alternativeCandidates = [food];
+      } else if (
+        conflictCount === bestConflictCount &&
+        preferenceScore === bestPreferenceScore
+      ) {
+        alternativeCandidates.push(food);
+      }
+    });
+
+    const randomAlternativeIndex = Math.floor(Math.random() * alternativeCandidates.length);
+    const alternativeFood = alternativeCandidates[randomAlternativeIndex];
+    const conflictingIngredients = alternativeFood.zutaten.filter((zutat) =>
+      excludedIngredients.includes(zutat)
+    );
+
+    const reasonText =
+      filteredByTime.length === 0
+        ? `Für ${mealTimeSelect.value} gibt es aktuell keine Gerichte in der Liste.`
+        : "Kein Gericht erfüllt alle Ausschlüsse. Hier ist der beste Alternativvorschlag:";
+
+    const conflictText =
+      conflictingIngredients.length > 0
+        ? `<p>Achtung: Enthält ausgeschlossene Zutaten: ${conflictingIngredients.join(", ")}</p>`
+        : "<p>Dieser Alternativvorschlag vermeidet alle ausgeschlossenen Zutaten.</p>";
+
+    resultBox.innerHTML = `
+      <h3>Kein perfektes Gericht gefunden.</h3>
+      <p>${reasonText}</p>
+      <p><strong>Alternativvorschlag: ${alternativeFood.name}</strong></p>
+      <p>Zutaten: ${alternativeFood.zutaten.join(", ")}</p>
+      ${conflictText}
+    `;
+
+    console.log("Ausgewaehlte Tageszeit:", mealTimeSelect.value);
+    console.log("Alternativvorschlag:", alternativeFood);
     return;
   }
 
